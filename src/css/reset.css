@@ -25,10 +25,14 @@ a {
 
 button {
   cursor: pointer;
+  border: none;
+  display: block;
 }
 
 img {
   display: block;
-  max-width: 100%;
-  height: auto;
+}
+
+input {
+  outline: none;
 }
