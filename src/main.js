@@ -48,5 +48,6 @@ function handleSubmit(event) {
       }
       createGallery(response.hits, list, gallery);
     })
+    .catch(err => console.log(err))
     .finally(() => loader.classList.add('hidden'));
 }
