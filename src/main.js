@@ -1,14 +1,20 @@
-// Описаний у документації
 import iziToast from 'izitoast';
-// Додатковий імпорт стилів
 import 'izitoast/dist/css/iziToast.min.css';
 
 import { API_KEY, BASE_URL, fetchData } from './js/pixabay-api';
 import { createGallery } from './js/render-functions';
 
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
+const gallery = new SimpleLightbox('.gallery a', {
+  overlayOpacity: 0.8,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
 const form = document.querySelector('form');
 const list = document.querySelector('ul');
-const button = document.querySelector('button');
 const input = document.querySelector('input');
 
 form.addEventListener('submit', handleSubmit);
@@ -25,22 +31,22 @@ function handleSubmit(event) {
     orientation: 'horizontal',
     safesearch: true,
   });
-  const loader = document.querySelector(".loader")
-  loader.classList.remove("hidden")
+  const loader = document.querySelector('.loader');
+  loader.classList.remove('hidden');
   fetchData(`${BASE_URL}?${query}`)
-  .then(response => {
-    if (response.hits.length < 1) {
-      iziToast.show({
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
-        position: 'topRight',
-        color: '#ef4040',
-        messageColor: '#fff',
-        theme: 'dark',
-      });
-      return;
-    }
-    createGallery(response.hits, list);
-  })
-  .finally(() => loader.classList.add("hidden"))
+    .then(response => {
+      if (response.hits.length < 1) {
+        iziToast.show({
+          message:
+            'Sorry, there are no images matching your search query. Please try again!',
+          position: 'topRight',
+          color: '#ef4040',
+          messageColor: '#fff',
+          theme: 'dark',
+        });
+        return;
+      }
+      createGallery(response.hits, list, gallery);
+    })
+    .finally(() => loader.classList.add('hidden'));
 }

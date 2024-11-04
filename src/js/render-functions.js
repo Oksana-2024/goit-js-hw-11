@@ -1,14 +1,4 @@
-//todo функції для відображення елементів інтерфейсу.
-// Описаний у документації
-import SimpleLightbox from 'simplelightbox';
-// Додатковий імпорт стилів
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
-export function createGallery(
-  array,
-  element,
-  simpleLightboxSelector = '.gallery a'
-) {
+export function createGallery(array, element, gallery) {
   const imagesFragment = document.createDocumentFragment();
   for (const {
     webformatURL,
@@ -25,13 +15,13 @@ export function createGallery(
     linkItem.classList.add('link-item');
     const img = document.createElement('img');
     const box = document.createElement('div');
-    box.classList.add("desc-container")
+    box.classList.add('desc-container');
 
     linkItem.href = largeImageURL;
     img.src = webformatURL;
     img.alt = tags;
-    img.width = "360"
-    img.height = "200"
+    img.width = '360';
+    img.height = '200';
     listItem.appendChild(linkItem);
     linkItem.appendChild(img);
     linkItem.appendChild(box);
@@ -58,9 +48,6 @@ export function createGallery(
   }
   element.innerHTML = '';
   element.append(imagesFragment);
-  const gallery = new SimpleLightbox(simpleLightboxSelector, {
-    overlayOpacity: 0.8,
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
+
+  gallery.refresh();
 }
