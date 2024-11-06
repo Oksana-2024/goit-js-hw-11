@@ -14,7 +14,7 @@ const gallery = new SimpleLightbox('.gallery a', {
 });
 
 const form = document.querySelector('form');
-const list = document.querySelector('ul');
+const list = document.querySelector('.gallery');
 const input = document.querySelector('input');
 
 form.addEventListener('submit', handleSubmit);
@@ -44,6 +44,7 @@ function handleSubmit(event) {
           messageColor: '#fff',
           theme: 'dark',
         });
+        list.innerHTML = '';
         return;
       }
       createGallery(response.hits, list, gallery);
